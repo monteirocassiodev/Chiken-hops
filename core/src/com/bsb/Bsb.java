@@ -31,6 +31,7 @@ public class Bsb extends ApplicationAdapter {
     private Texture[] trump;
     private Texture[] covid;
     private Texture[] faustao;
+    private Texture gameOver;
 
     private Texture[] covidemenor;
     private Texture[] covidmaior;
@@ -40,6 +41,7 @@ public class Bsb extends ApplicationAdapter {
     private Random numeroRandomico;
 
     private BitmapFont fonte;
+    private BitmapFont mensagem;
     private Circle galinhaCirculo;
     private Circle covid1circulo;
     private Circle covid2circulo;
@@ -89,6 +91,12 @@ public class Bsb extends ApplicationAdapter {
         fonte.setColor(Color.WHITE);
         fonte.getData().setScale(6);
 
+        mensagem = new BitmapFont();
+        mensagem.setColor(Color.WHITE);
+        mensagem.getData().setScale(3);
+
+
+
         batch = new SpriteBatch(); // imagem de plano de fundo
         galinha = new Texture[3];
         galinha[0] = new Texture("galinha_1.png");
@@ -119,6 +127,8 @@ public class Bsb extends ApplicationAdapter {
 
 
         fundo = new Texture("fundo_revital.png");
+
+        gameOver = new Texture("game_over.png");
 
         larguraDispositivo = Gdx.graphics.getWidth();
         alturaDispositivo = Gdx.graphics.getHeight();
@@ -170,7 +180,7 @@ public class Bsb extends ApplicationAdapter {
             movimentohorizontal4 -= deltaTime * 450;
 
             if (Gdx.input.justTouched()) { // batida de asa
-                velocidadeQueda = -30;
+                velocidadeQueda = -15;
             }
 
             if (posicaoInicalvertical > 450 || velocidadeQueda < 0)
@@ -203,7 +213,7 @@ public class Bsb extends ApplicationAdapter {
 
 
             // verifica a pontuação
-            if (movimentohorizontal < 300) {
+            if (movimentohorizontal < 500) {
                 if (!marcouPonto) {
                     pontuacao++;
                     marcouPonto = true;
@@ -211,7 +221,7 @@ public class Bsb extends ApplicationAdapter {
 
             }
 
-            if (movimentohorizontal3 < 300) {
+            if (movimentohorizontal3 < 500) {
                 if (!marcouPonto) {
                     pontuacao++;
                     marcouPonto = true;
@@ -219,7 +229,7 @@ public class Bsb extends ApplicationAdapter {
 
             }
 
-            if (movimentohorizontal2 < 300) {
+            if (movimentohorizontal2 < 500) {
                 if (!marcouPonto) {
                     pontuacao++;
                     marcouPonto = true;
@@ -227,19 +237,26 @@ public class Bsb extends ApplicationAdapter {
 
             }
 
-            if (movimentohorizontal4 < 300) {
+            if (movimentohorizontal4 < 500) {
                 if (!marcouPonto) {
                     pontuacao++;
                     marcouPonto = true;
                 }
 
             }
-        } else {  // executar tela de game over
+        } else {
+            if(Gdx.input.justTouched()){  // executar tela de game over
+                estadodoJogo = 0 ;
+                pontuacao = 0 ;
+                velocidadeQueda = 0 ;
+                posicaoInicalvertical = alturaDispositivo /2;
+                movimentohorizontal = larguraDispositivo;
+                movimentohorizontal2 = larguraDispositivo;
+                movimentohorizontal3 = larguraDispositivo;
+                movimentohorizontal4 = larguraDispositivo;
 
 
-
-
-
+            }
 
         }
 
@@ -255,10 +272,15 @@ public class Bsb extends ApplicationAdapter {
 
 
 		// Galinha
-		batch.draw(galinha[(int)variacao],300,posicaoInicalvertical);
+		batch.draw(galinha[(int)variacao],500,posicaoInicalvertical);
 
 		// Pontuação
 		fonte.draw(batch,String.valueOf(pontuacao),larguraDispositivo/2,alturaDispositivo-100);
+		if(estadodoJogo == 2){
+		    batch.draw(gameOver,larguraDispositivo/2- gameOver.getWidth()/2,alturaDispositivo/2);
+		    mensagem.draw(batch,"Toque para reiniciar " , larguraDispositivo/2 - 200 , alturaDispositivo/2);
+
+        }
 
 
 		batch.end();
@@ -266,77 +288,27 @@ public class Bsb extends ApplicationAdapter {
 
 		galinhaCirculo=new
 
-				Circle(300+galinha[0].getWidth()/2,posicaoInicalvertical+galinha[0].
-
-				getHeight()/2,galinha[0].
-
-				getHeight()/2);
+				Circle(500+galinha[0].getWidth()/2,posicaoInicalvertical+galinha[0]. getHeight()/2,galinha[0]. getHeight()/2);
 		covid1circulo=new
 
-				Circle(movimentohorizontal+covid[0].getHeight()/2,(1800)+verticalRandomico+covid[0].
-
-				getWidth()/2,covid[0].
-
-				getHeight());
+				Circle(movimentohorizontal+covid[0].getHeight()/2,(1800)+verticalRandomico+covid[0].getWidth()/2,covid[0].getHeight());
 		covid2circulo=new
 
-				Circle(movimentohorizontal2+covidemenor[0].getHeight()/2,(1000)+verticalRandomico+covidemenor[0].
-
-				getWidth()/2,covidemenor[0].
-
-				getHeight()/2);
+				Circle(movimentohorizontal2+covidemenor[0].getHeight()/2,(1000)+verticalRandomico+covidemenor[0].getWidth()/2,covidemenor[0].getHeight()/2);
 		covid3circulo=new
 
-				Circle(movimentohorizontal3+covidmaior[0].getHeight()/2,(500)+verticalRandomico+covidmaior[0].
-
-				getWidth()/2,covidmaior[0].
-
-				getHeight()/2);
+				Circle(movimentohorizontal3+covidmaior[0].getHeight()/2,(500)+verticalRandomico+covidmaior[0].getWidth()/2,covidmaior[0].getHeight()/2);
 		covid4circulo=new
 
-				Circle(movimentohorizontal4+covidmedio[0].getHeight()/2,(50)+verticalRandomico+covidmedio[0].
-
-				getWidth()/2,covidmedio[0].
-
-				getHeight()/2);
+				Circle(movimentohorizontal4+covidmedio[0].getHeight()/2,(50)+verticalRandomico+covidmedio[0].getWidth()/2,covidmedio[0].getHeight()/2);
 
 		//desenhar formas
 
-		galinhaCirculo.set(300+galinha[0].
-
-				getWidth()/2,posicaoInicalvertical+galinha[0].
-
-				getHeight()/2,galinha[0].
-
-				getHeight()/2);
-		covid1circulo.set(movimentohorizontal+covid[0].
-
-				getHeight()/2,(1800)+verticalRandomico+covid[0].
-
-				getWidth()/2,covid[0].
-
-				getHeight()/2);
-		covid2circulo.set(movimentohorizontal2+covidemenor[0].
-
-				getHeight()/2,(1000)+verticalRandomico+covidemenor[0].
-
-				getWidth()/2,covidemenor[0].
-
-				getHeight()/2);
-		covid3circulo.set(movimentohorizontal3+covidmaior[0].
-
-				getHeight()/2,(500)+verticalRandomico+covidmaior[0].
-
-				getWidth()/2,covidmaior[0].
-
-				getHeight()/2);
-		covid4circulo.set(movimentohorizontal4+covidmedio[0].
-
-				getHeight()/2,(50)+verticalRandomico+covidmedio[0].
-
-				getWidth()/2,covidmedio[0].
-
-				getHeight()/2);
+		galinhaCirculo.set(500+galinha[0].getWidth()/2,posicaoInicalvertical+galinha[0].getHeight()/2,galinha[0].getHeight()/2);
+		covid1circulo.set(movimentohorizontal+covid[0].getHeight()/2,(1800)+verticalRandomico+covid[0].getWidth()/2,covid[0].getHeight()/2);
+		covid2circulo.set(movimentohorizontal2+covidemenor[0].getHeight()/2,(1000)+verticalRandomico+covidemenor[0].getWidth()/2,covidemenor[0].getHeight()/2);
+		covid3circulo.set(movimentohorizontal3+covidmaior[0].getHeight()/2,(500)+verticalRandomico+covidmaior[0].getWidth()/2,covidmaior[0].getHeight()/2);
+		covid4circulo.set(movimentohorizontal4+covidmedio[0].getHeight()/2,(50)+verticalRandomico+covidmedio[0].getWidth()/2,covidmedio[0].getHeight()/2);
 
 
 		// fim desenhar formas
