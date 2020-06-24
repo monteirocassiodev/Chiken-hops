@@ -128,7 +128,7 @@ public class Bsb extends ApplicationAdapter {
 
         fundo = new Texture("fundo_revital.png");
 
-        gameOver = new Texture("game_over.png");
+        gameOver = new Texture("GAMEGALINHAOVER.png");
 
         larguraDispositivo = Gdx.graphics.getWidth();
         alturaDispositivo = Gdx.graphics.getHeight();
@@ -183,7 +183,7 @@ public class Bsb extends ApplicationAdapter {
                 velocidadeQueda = -15;
             }
 
-            if (posicaoInicalvertical > 450 || velocidadeQueda < 0)
+            if (posicaoInicalvertical > 500 || velocidadeQueda < 0)
                 posicaoInicalvertical = posicaoInicalvertical - velocidadeQueda;
 
             // PERSONAGENS EM MOVIMENTO QUE VOAM
@@ -304,7 +304,7 @@ public class Bsb extends ApplicationAdapter {
 
 		//desenhar formas
 
-		galinhaCirculo.set(500+galinha[0].getWidth()/2,posicaoInicalvertical+galinha[0].getHeight()/2,galinha[0].getHeight()/2);
+                galinhaCirculo.set(500+galinha[0].getWidth()/2,posicaoInicalvertical+galinha[0].getHeight()/2,60);
 		covid1circulo.set(movimentohorizontal+covid[0].getHeight()/2,(1800)+verticalRandomico+covid[0].getWidth()/2,covid[0].getHeight()/2);
 		covid2circulo.set(movimentohorizontal2+covidemenor[0].getHeight()/2,(1000)+verticalRandomico+covidemenor[0].getWidth()/2,covidemenor[0].getHeight()/2);
 		covid3circulo.set(movimentohorizontal3+covidmaior[0].getHeight()/2,(500)+verticalRandomico+covidmaior[0].getWidth()/2,covidmaior[0].getHeight()/2);
