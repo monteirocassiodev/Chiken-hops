@@ -80,12 +80,12 @@ public class Bsb extends ApplicationAdapter {
 
         numeroRandomico = new Random();
 
-        galinhaCirculo = new Circle();
-			/*covid1circulo = new Circle();
+          galinhaCirculo = new Circle();
+			covid1circulo = new Circle();
 			covid2circulo = new Circle();
 			covid3circulo = new Circle();
 			covid4circulo = new Circle();
-			shape = new ShapeRenderer();*/
+			/*shape = new ShapeRenderer();*/
 
         fonte = new BitmapFont();
         fonte.setColor(Color.WHITE);
@@ -174,13 +174,13 @@ public class Bsb extends ApplicationAdapter {
 
         if (estadodoJogo == 1) {
 
-            movimentohorizontal -= deltaTime * 100;
+            movimentohorizontal -= deltaTime * 150; // aceleração dos covids
             movimentohorizontal2 -= deltaTime * 250;
-            movimentohorizontal3 -= deltaTime * 100;
-            movimentohorizontal4 -= deltaTime * 450;
+            movimentohorizontal3 -= deltaTime * 350;
+            movimentohorizontal4 -= deltaTime * 10;
 
             if (Gdx.input.justTouched()) { // batida de asa
-                velocidadeQueda = -15;
+                velocidadeQueda = -16;
             }
 
             if (posicaoInicalvertical > 500 || velocidadeQueda < 0)
@@ -249,7 +249,8 @@ public class Bsb extends ApplicationAdapter {
                 estadodoJogo = 0 ;
                 pontuacao = 0 ;
                 velocidadeQueda = 0 ;
-                posicaoInicalvertical = alturaDispositivo /2;
+
+                posicaoInicalvertical = alturaDispositivo/2;
                 movimentohorizontal = larguraDispositivo;
                 movimentohorizontal2 = larguraDispositivo;
                 movimentohorizontal3 = larguraDispositivo;
@@ -265,17 +266,17 @@ public class Bsb extends ApplicationAdapter {
 		batch.draw(fundo,0,0,larguraDispositivo,alturaDispositivo);
 
 
-		batch.draw(covid[(int)variacao],movimentohorizontal,(1800)+verticalRandomico);
+		batch.draw(covid[(int)variacao],movimentohorizontal,(200)+verticalRandomico);
 		batch.draw(covidemenor[(int)variacao],movimentohorizontal2,(1000)+verticalRandomico);
 		batch.draw(covidmaior[(int)variacao],movimentohorizontal3,(500)+verticalRandomico);
 		batch.draw(covidmedio[(int)variacao],movimentohorizontal4,(50)+verticalRandomico);
 
 
 		// Galinha
-		batch.draw(galinha[(int)variacao],500,posicaoInicalvertical);
+		batch.draw(galinha[(int)variacao],500,posicaoInicalvertical/3);
 
 		// Pontuação
-		fonte.draw(batch,String.valueOf(pontuacao),larguraDispositivo/2,alturaDispositivo-100);
+		fonte.draw(batch,String.valueOf(pontuacao),larguraDispositivo/2,alturaDispositivo-180);
 		if(estadodoJogo == 2){
 		    batch.draw(gameOver,larguraDispositivo/2- gameOver.getWidth()/2,alturaDispositivo/2);
 		    mensagem.draw(batch,"Toque para reiniciar " , larguraDispositivo/2 - 200 , alturaDispositivo/2);
@@ -287,25 +288,32 @@ public class Bsb extends ApplicationAdapter {
 		// fim da renderiazação
 
 		galinhaCirculo=new
+                Circle(500+galinha[0].getWidth()/2,posicaoInicalvertical+galinha[0]. getHeight()/2,galinha[0]. getHeight()/2);
 
-				Circle(500+galinha[0].getWidth()/2,posicaoInicalvertical+galinha[0]. getHeight()/2,galinha[0]. getHeight()/2);
+
 		covid1circulo=new
+                Circle(movimentohorizontal+covid[0].getHeight()/2,(1500)+verticalRandomico+covid[0].getWidth()/2,covid[0].getHeight()/2);
 
-				Circle(movimentohorizontal+covid[0].getHeight()/2,(1800)+verticalRandomico+covid[0].getWidth()/2,covid[0].getHeight());
+
 		covid2circulo=new
+                Circle(movimentohorizontal2+covidemenor[0].getHeight()/2,(1000)+verticalRandomico+covidemenor[0].getWidth()/2,covidemenor[0].getHeight()/2);
 
-				Circle(movimentohorizontal2+covidemenor[0].getHeight()/2,(1000)+verticalRandomico+covidemenor[0].getWidth()/2,covidemenor[0].getHeight()/2);
+
 		covid3circulo=new
+                Circle(movimentohorizontal3+covidmaior[0].getHeight()/2,(500)+verticalRandomico+covidmaior[0].getWidth()/2,covidmaior[0].getHeight()/2);
 
-				Circle(movimentohorizontal3+covidmaior[0].getHeight()/2,(500)+verticalRandomico+covidmaior[0].getWidth()/2,covidmaior[0].getHeight()/2);
+
 		covid4circulo=new
+                Circle(movimentohorizontal4+covidmedio[0].getHeight()/2,(50)+verticalRandomico+covidmedio[0].getWidth()/2,covidmedio[0].getHeight()/2);
 
-				Circle(movimentohorizontal4+covidmedio[0].getHeight()/2,(50)+verticalRandomico+covidmedio[0].getWidth()/2,covidmedio[0].getHeight()/2);
+
 
 		//desenhar formas
 
-                galinhaCirculo.set(500+galinha[0].getWidth()/2,posicaoInicalvertical+galinha[0].getHeight()/2,60);
-		covid1circulo.set(movimentohorizontal+covid[0].getHeight()/2,(1800)+verticalRandomico+covid[0].getWidth()/2,covid[0].getHeight()/2);
+                galinhaCirculo.set(500+galinha[0].getWidth()/2,posicaoInicalvertical+galinha[0].getHeight()/2,50);
+
+
+		covid1circulo.set(movimentohorizontal+covid[0].getHeight()/2,(200)+verticalRandomico+covid[0].getWidth()/2,covid[0].getHeight()/2);
 		covid2circulo.set(movimentohorizontal2+covidemenor[0].getHeight()/2,(1000)+verticalRandomico+covidemenor[0].getWidth()/2,covidemenor[0].getHeight()/2);
 		covid3circulo.set(movimentohorizontal3+covidmaior[0].getHeight()/2,(500)+verticalRandomico+covidmaior[0].getWidth()/2,covidmaior[0].getHeight()/2);
 		covid4circulo.set(movimentohorizontal4+covidmedio[0].getHeight()/2,(50)+verticalRandomico+covidmedio[0].getWidth()/2,covidmedio[0].getHeight()/2);
@@ -330,14 +338,8 @@ public class Bsb extends ApplicationAdapter {
 
 		// TESTE DE COLISÃO
 
-		if(Intersector.overlaps(galinhaCirculo,covid1circulo)||Intersector.overlaps(galinhaCirculo,covid2circulo)||Intersector.overlaps(galinhaCirculo,covid3circulo)||Intersector.overlaps(galinhaCirculo,covid4circulo))
 
-
-			estadodoJogo=2;
-
-
-
-
+            if(Intersector.overlaps(galinhaCirculo,covid1circulo)||Intersector.overlaps(galinhaCirculo,covid2circulo)||Intersector.overlaps(galinhaCirculo,covid3circulo)||Intersector.overlaps(galinhaCirculo,covid4circulo)) estadodoJogo=2;
 
 
 

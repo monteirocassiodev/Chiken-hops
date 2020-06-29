@@ -13,6 +13,7 @@ android {
         }
 
     }
+
     packagingOptions {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
@@ -29,6 +30,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dependencies {
+        implementation 'com.google.android.gms:play-services-ads:19.2.0'
+    }
+
+
+
 }
 
 
