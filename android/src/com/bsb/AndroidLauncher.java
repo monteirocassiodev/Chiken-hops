@@ -20,7 +20,10 @@ public class AndroidLauncher extends AndroidApplication {
 	protected AdView adView;
 	private AudioAttributes.Builder builder;
 	private RelativeLayout.LayoutParams params;
-	private adView bannerAd;
+	private adView bannerAd = new adView(this);
+
+	public AndroidLauncher() {
+	}
 
 	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	@Override
@@ -35,8 +38,11 @@ public class AndroidLauncher extends AndroidApplication {
 		// definição do layout
 
 		layout =new RelativeLayout(this);
-		layout.addView(gameView), ViewGroup.LayoutParams.MATCH_PARENT;
-				ViewGroup.LayoutParams.MATCH_PARENT;
+		layout.addView(gameView);
+		switch (ViewGroup.LayoutParams.MATCH_PARENT) {
+		}
+		switch (ViewGroup.LayoutParams.MATCH_PARENT) {
+		}
 
 		params = new RelativeLayout.LayoutParams(
 				ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -45,11 +51,10 @@ public class AndroidLauncher extends AndroidApplication {
 		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		params.addRule(RelativeLayout.CENTER_IN_PARENT);
 
-		bannerAd = new adView(this);
 		adView.setAdUnitId("ca-app-pub-6399906585875445/8553676315");
 		adView.setAdSize(AdSize.SMART_BANNER);
 
-		layout.addView(bannerAd, params);
+		layout.addView(adView,params);
 		SetContentView(layout);
 
 		AdRequest ad = new AdRequest.Builder().build();
@@ -62,6 +67,19 @@ public class AndroidLauncher extends AndroidApplication {
 
 	}
 
+	public AndroidLauncher.adView getBannerAd() {
+		return bannerAd;
+	}
+
+	public void setBannerAd(AndroidLauncher.adView bannerAd) {
+		this.bannerAd = bannerAd;
+	}
+
+	private class adView {
+		public adView(AndroidLauncher androidLauncher) {
+
+		}
+	}
 }
 
 
